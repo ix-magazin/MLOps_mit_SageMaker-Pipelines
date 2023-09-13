@@ -1,4 +1,4 @@
-# Listing 1: Definition der SageMaker Pipeline
+# Listing 1: Definieren der SageMaker Pipeline
 from sagemaker.workflow.pipeline import Pipeline
 
   pipeline_name = f"BankingRejection"
@@ -11,7 +11,7 @@ from sagemaker.workflow.pipeline import Pipeline
 #pipeline.upsert(role_arn=role)
 #execution = pipeline.start()
 
-# Listing 2: Definition des PreprocessingStep
+# Listing 2: Erstellen des PreprocessingStep
 from sagemaker.processing import FrameworkProcessor, ProcessingInput, ProcessingOutput
 from sagemaker.sklearn import SKLearn
 
@@ -66,7 +66,7 @@ processor_args = sklearn_processor.run(
     with tarfile.open(f”{base_dir}/scaler_model/model.tar.gz”, “w:gz”) as tar_handle:
         tar_handle.add(“model.joblib”)
 
-# Listing 4: Definition des Estimator Objekts
+# Listing 4: Definieren des Estimator Objekts
 xgb_train = Estimator(
         image_uri=retrieve(
         framework=“xgboost“, region=“eu-central-1“, version=“1.0-1“, py_version=“py3“, instance_type=“ml.t2.medium“
@@ -80,7 +80,7 @@ uri,
     )
     xgb_train.set_hyperparameters(**hyperparameters)
 
-# Listing 5: Definition des TrainingStep
+# Listing 5: Den TrainingStep vorbereiten
 step_train = TrainingStep(
         name=f"{project_name}Train",
         estimator=xgb_train,
@@ -96,7 +96,7 @@ s3_data=step_preprocess.properties.ProcessingOutputConfig.Outputs["train"].S3Out
         },
     )
 
-# Listing 6: Definition des ModelSteps
+# Listing 6: Erstellen des ModelStep
     xgb_model = Model(
         image_uri=image_uri_xgb,
         model_data=step_train.properties.ModelArtifacts.S3ModelArtifacts,
@@ -132,7 +132,6 @@ scaler_model = SKLearnModel(
     )
 
 # Listing 8: Modellregistrierung
-
 register_args = pipeline_model.register(
         content_types=["text/csv"],
         response_types=["text/csv"],
@@ -148,7 +147,7 @@ register_args = pipeline_model.register(
         step_args=register_args,
     )
 
-# Listing 9:Modell-Inferenz an einem bereitgestellten Endpunkt
+# Listing 9:Modellinferenz an einem bereitgestellten Endpunkt
 payload = data.to_csv(index=False, header=False).encode('utf-8')
 
 response = sagemaker_runtime_client.invoke_endpoint(
