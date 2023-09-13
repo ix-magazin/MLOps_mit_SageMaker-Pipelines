@@ -1,5 +1,5 @@
 # MLOps mit SageMaker-Pipelines
-Listings des Praxis-Artikels von Franz Eigner, erschienen in [Ausgabe 10/2023](https://www.heise.de/select/ix/2023/10/2305310340724855288) des [iX Magazins](https://www.heise.de/select/ix/2023/10).
+Listings des [Praxis-Artikels](https://www.heise.de/select/ix/2023/10/2305310340724855288) von Franz Eigner, erschienen in [Ausgabe 10/2023](https://www.heise.de/select/ix/2023/10) des iX Magazins.
 
 # iX-tract
 - SageMaker Pipelines ist ein integraler Bestandteil der Machine-Learning-Plattform SageMaker von AWS und ermöglicht das Erstellen von Machine-Learning-Pipelines für Data-Science-Projekte.
